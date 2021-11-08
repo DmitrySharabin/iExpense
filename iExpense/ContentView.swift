@@ -7,18 +7,13 @@
 
 import SwiftUI
 
-//struct User {
-//    var firstName = "Bilbo"
-//    var lastName = "Baggins"
-//}
-
-class User {
-    var firstName = "Bilbo"
-    var lastName = "Baggins"
+class User: ObservableObject {
+    @Published var firstName = "Bilbo"
+    @Published var lastName = "Baggins"
 }
 
 struct ContentView: View {
-    @State private var user = User()
+    @StateObject var user = User()
     
     var body: some View {
         VStack {
