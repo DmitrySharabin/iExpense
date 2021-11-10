@@ -13,6 +13,28 @@ extension Collection {
     }
 }
 
+struct AmountView: View {
+    let amount: Double
+    
+    var color: Color {
+        if amount < 10 {
+            return .green
+        } else if amount < 100 {
+            return .yellow
+        } else {
+            return .red
+        }
+    }
+    
+    var body: some View {
+        Text(amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+            .padding(5)
+            .background(color.opacity(0.3))
+            .foregroundColor(.black.opacity(0.6))
+            .clipShape(RoundedRectangle(cornerRadius: 5))
+    }
+}
+
 struct ContentView: View {
     @StateObject var expenses = Expenses()
     @State private var showingAddExpense = false
@@ -23,10 +45,6 @@ struct ContentView: View {
     
     private var personalExpenses: [ExpenseItem] {
         expenses.items.filter { $0.type == "Personal" }
-    }
-    
-    var currencyFormatter: FloatingPointFormatStyle<Double>.Currency {
-        .currency(code: Locale.current.currencyCode ?? "USD")
     }
     
     var body: some View {
@@ -43,7 +61,7 @@ struct ContentView: View {
                                 
                                 Spacer()
                                 
-                                Text(item.amount, format: currencyFormatter)
+                                AmountView(amount: item.amount)
                             }
                         }
                         .onDelete { offsets in
@@ -63,7 +81,7 @@ struct ContentView: View {
                                 
                                 Spacer()
                                 
-                                Text(item.amount, format: currencyFormatter)
+                                AmountView(amount: item.amount)
                             }
                         }
                         .onDelete { offsets in
