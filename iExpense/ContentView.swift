@@ -63,6 +63,9 @@ struct ContentView: View {
                                 
                                 AmountView(amount: item.amount)
                             }
+                            .accessibilityElement()
+                            .accessibilityLabel("\(item.name), \(item.amount)")
+                            .accessibilityHint("Personal expense")
                         }
                         .onDelete { offsets in
                             removeItems(at: offsets, type: "Personal")
@@ -83,6 +86,9 @@ struct ContentView: View {
                                 
                                 AmountView(amount: item.amount)
                             }
+                            .accessibilityElement()
+                            .accessibilityLabel("\(item.name), \(item.amount)")
+                            .accessibilityHint("Business expense")
                         }
                         .onDelete { offsets in
                             removeItems(at: offsets, type: "Business")
